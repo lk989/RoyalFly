@@ -3,16 +3,18 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Arc;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -430,7 +432,32 @@ public class HelloApplication extends Application {
             signinRoot.getChildren().remove(signUpInformation);
             signinRoot.getChildren().remove(signInInformation);
             signinRoot.getChildren().add(signUpInformation);
-            submitButton.setOnMouseClicked(event -> {
+        });
+        //-------------------------------------- Mouse action for sign in-----------------------------------------------
+        loginRegisterScene.setOnMouseClicked(event -> {
+            signinRoot.getChildren().remove(signUpInformation);
+            signinRoot.getChildren().remove(signInInformation);
+            signinRoot.getChildren().add(signInInformation);
+
+        });
+
+
+        signInButtonHomepage.setOnMouseClicked(e -> {
+            if(signinRoot.getChildren().contains(signUpInformation))
+                signinRoot.getChildren().remove(signUpInformation);
+            signinRoot.getChildren().add(signInInformation);
+            stage.setScene(signinScene);
+        });
+        signUpButtonHomepage.setOnMouseClicked(e -> {
+            if(signinRoot.getChildren().contains(signInInformation))
+                signinRoot.getChildren().remove(signInInformation);
+            stage.setScene(signinScene);
+            signinRoot.getChildren().add(signUpInformation);
+        });
+        back.setOnAction(e -> stage.setScene(homepage));
+
+        submitButton.setOnAction(event -> {
+            if(signinRoot.getChildren().contains(signUpInformation)){
                 if (fNameInput.getText().isEmpty()) {
                     fNameInput.setStyle("-fx-border-color:red; -fx-border-width:1; -fx-border-radius:5;");
                     requiredLabel.setText("this field is required");
@@ -493,14 +520,8 @@ public class HelloApplication extends Application {
                     passwordConfirmationInput.setStyle(" ");
                     requiredLabel.setText(" ");
                 }
-            });
-        });
-        //-------------------------------------- Mouse action for sign in-----------------------------------------------
-        loginRegisterScene.setOnMouseClicked(event -> {
-            signinRoot.getChildren().remove(signUpInformation);
-            signinRoot.getChildren().remove(signInInformation);
-            signinRoot.getChildren().add(signInInformation);
-            submitButton.setOnMouseClicked(e -> {
+            }
+            else {
                 if (emailLoginInput.getText().isEmpty()) {
                     emailLoginInput.setStyle("-fx-border-color:red; -fx-border-width:1; -fx-border-radius:5;");
                     requiredLabel.setText("this field is required");
@@ -520,23 +541,204 @@ public class HelloApplication extends Application {
                     requiredLabel.setText(" ");
 
                 }
-            });
+            }
         });
 
 
-        signInButtonHomepage.setOnMouseClicked(e -> {
-            if(signinRoot.getChildren().contains(signUpInformation))
-                signinRoot.getChildren().remove(signUpInformation);
-            signinRoot.getChildren().add(signInInformation);
-            stage.setScene(signinScene);
-        });
-        signUpButtonHomepage.setOnMouseClicked(e -> {
-            if(signinRoot.getChildren().contains(signInInformation))
-                signinRoot.getChildren().remove(signInInformation);
-            stage.setScene(signinScene);
-            signinRoot.getChildren().add(signUpInformation);
-        });
-        back.setOnAction(e -> stage.setScene(homepage));
+
+
+        /*
+
+
+
+                                            BOOKING SCENE
+
+
+
+
+         */
+
+        Pane pane1=new Pane();
+
+        Rectangle rectangle=new Rectangle(800,100,Color.web("f0f1f5") );
+        rectangle.setStroke(Color.web("#d4d9ef"));
+        rectangle.setStrokeWidth(4);
+        rectangle.setTranslateY(250);
+
+
+        Image image=new Image("https://i.pinimg.com/564x/5a/82/87/5a8287ebc0d2e742817df57691581b21.jpg");
+        ImagePattern pattern=new ImagePattern(image,800,200,800,800,false);
+
+
+        Arc arc = new Arc(400,0, 600, 200, 195, 150);
+        arc.setFill(pattern);
+        pane1.getChildren().addAll(arc);
+
+
+
+        VBox Friday =new VBox(3);
+        Label day1=new Label("Saturday");
+        day1.setFont(Font.font("Comic Sans MS",18));
+        Label price1=new Label("Start from SAR \n 300 ");
+        price1.setFont(Font.font("Elephant",12));
+        price1.setStyle("-fx-border-color:#424242; -fx-border-width:1px");
+        Friday.getChildren().addAll(day1,price1);
+
+
+        VBox Thursday=new VBox(3);
+        Label day2=new Label("Sunday");
+        day2.setFont(Font.font("Comic Sans MS",18));
+        Label price2=new Label("Start from SAR \n 300 ");
+        price2.setStyle("-fx-border-color:#424242; -fx-border-width:1px");
+        Thursday.getChildren().addAll(day2,price2);
+
+        VBox Wednesday=new VBox(3);
+        Label day3=new Label("Monday");
+        day3.setFont(Font.font("Comic Sans MS",18));
+        Label price3=new Label("Start from SAR \n 300 ");
+        price3.setStyle("-fx-border-color:#424242; -fx-border-width:1px");
+        Wednesday.getChildren().addAll(day3,price3);
+
+        VBox Tuesday=new VBox(3);
+        Label day4=new Label("Tuesday");
+        day4.setFont(Font.font("Comic Sans MS",18));
+        Label price4=new Label("Start from SAR \n 300 ");
+        price4.setStyle("-fx-border-color:#424242; -fx-border-width:1px");
+        Tuesday.getChildren().addAll(day4,price4);
+
+        VBox Monday=new VBox(3);
+        Label day5=new Label("Wednesday");
+        day5.setFont(Font.font("Comic Sans MS",18));
+        Label price5=new Label("Start from SAR \n 300 ");
+        price5.setStyle("-fx-border-color:#424242; -fx-border-width:1px");
+
+
+        Monday.getChildren().addAll(day5,price5);
+
+        VBox Sunday=new VBox(3);
+        Label day6=new Label("Thursday");
+        day6.setFont(Font.font("Comic Sans MS",18));
+        Label price6=new Label("Start from SAR \n 300 ");
+        price6.setStyle("-fx-border-color:#424242; -fx-border-width:1px");
+        Sunday.getChildren().addAll(day6,price6);
+
+        VBox Saturday=new VBox(3);
+        Label day7=new Label("Friday");
+        day7.setFont(Font.font("Comic Sans MS",18));
+        Label price7=new Label("Start from SAR \n 300 ");
+        price7.setStyle("-fx-border-color:#424242; -fx-border-width:1px");
+        Saturday.getChildren().addAll(day7,price7);
+
+
+        HBox daysAndprice=new HBox(30);
+        daysAndprice.getChildren().addAll(Saturday,Sunday,Monday,Tuesday,Wednesday,Thursday,Friday);
+        daysAndprice.setTranslateX(5);
+        daysAndprice.setTranslateY(260);
+
+
+        // Trip 1
+        HBox city=new HBox(60);
+        Text fromCity=new Text("RUH");
+        fromCity.setFont(Font.font("Century",15));
+        Text to=new Text("Non-stop.1h45m");
+        to.setFont(Font.font("Century",10));
+        Text toCity=new Text("ABHA");
+        toCity.setFont(Font.font("Century",15));
+        city.setTranslateX(500);
+        city.setTranslateY(380);
+        city.getChildren().addAll(toCity,to,fromCity);
+
+        HBox Time=new HBox(20);
+        Text fromTime=new Text("3:40");
+        fromTime.setFont(Font.font("Century",30));
+        Image image1=new Image("file:///Users/abeertunkar/Desktop/College%20CS/Advanced%20Programming/project/Project/src/main/java/com/example/project/airline.png");
+        ImageView imageView=new ImageView(image1);
+        imageView.setFitHeight(20);
+        imageView.setFitWidth(150);
+        Text toTime=new Text("5:35");
+        toTime.setFont(Font.font("Century",30));
+        Time.setTranslateX(480);
+        Time.setTranslateY(380);
+        Time.getChildren().addAll(fromTime,imageView,toTime);
+
+        Pane pane2=new Pane();
+        Rectangle rectangle1= new Rectangle();
+        Text Gust=new Text("Guest");
+        Gust.setFont(Font.font("Impact",15));
+        Gust.setUnderline(true);
+        Gust.setTranslateY(333);
+        Gust.setTranslateX(267);
+
+        Text from1=new Text("FROM SRA");
+        from1.setFont(Font.font("Elephant",9));
+        from1.setTranslateY(365);
+        from1.setTranslateX(260);
+
+        Text pr=new Text("688.88");
+        pr.setFont(Font.font("Tahoma",20));
+        pr.setTranslateY(386);
+        pr.setTranslateX(260);
+
+        rectangle1.setHeight(90);
+        rectangle1.setWidth(150);
+        rectangle1.setTranslateY(310);
+        rectangle1.setTranslateX(250);
+        rectangle1.setArcHeight(60);
+        rectangle1.setArcWidth(60);
+        Image image2=new Image("https://i.pinimg.com/564x/7e/40/8c/7e408cf13cbc0772ab2d5e135f7e9196.jpg");
+        ImagePattern pattern1=new ImagePattern(image2);
+        rectangle1.setFill(pattern1);
+        pane2.getChildren().addAll(rectangle1,Gust,from1,pr);
+
+
+        Pane Bus=new Pane();
+        Rectangle rectangle2= new Rectangle();
+        Text business=new Text("Business");
+        business.setFont(Font.font("Impact",15));
+        business.setUnderline(true);
+        business.setTranslateX(65);
+        business.setTranslateY(224);
+        Text from=new Text("FROM SRA");
+        from.setFont(Font.font("Elephant",9));
+        from.setTranslateY(255);
+        from.setTranslateX(60);
+        Text price=new Text("1699");
+        price.setFont(Font.font("Tahoma",20));
+        price.setTranslateY(275);
+        price.setTranslateX(60);
+
+
+        rectangle2.setHeight(90);
+        rectangle2.setWidth(150);
+        rectangle2.setTranslateY(200);
+        rectangle2.setTranslateX(50);
+        rectangle2.setArcHeight(60);
+        rectangle2.setArcWidth(60);
+        rectangle2.setFill(pattern1);
+        Bus.getChildren().addAll(rectangle2,business,from,price);
+
+
+        VBox Trip1=new VBox();
+        Trip1.getChildren().addAll(city,Time,pane2,Bus);//,trip2,trip3,trip4);
+        // Trip1.setTranslateY(380);
+
+
+
+        Group root=new Group(rectangle,pane1,daysAndprice,Trip1);
+        ScrollPane scroll = new ScrollPane(root);
+        scroll.setFitToWidth(true);
+        scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        Scene bookingScene = new Scene(scroll, 800, 600);
+        bookingScene.setFill(Color.web("#f3f4f6"));
+
+
+        searchButton.setOnAction(e -> stage.setScene(bookingScene));
+
+        //bookingScene.getStylesheets().add(getClass().getResource("/stylesheet.css").toExternalForm());
+
+
+
 
 
 
